@@ -1,0 +1,17 @@
+
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.tom93.viettrung'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'com.tom93.viettrung'
+        minSdk 23
+        targetSdk 35
+        versionCode 1
+        versionName '1.0'
+    }
+}
