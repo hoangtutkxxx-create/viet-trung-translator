@@ -12,7 +12,6 @@
 
         <activity
             android:name="com.tom93.viettrung.MainActivity"
-            android:screenOrientation="unspecified"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:exported="true">
 
