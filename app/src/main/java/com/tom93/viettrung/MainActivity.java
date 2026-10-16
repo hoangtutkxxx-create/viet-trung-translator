@@ -110,10 +110,10 @@ public class MainActivity extends Activity {
         zhLabel.setPadding(0, dp(20), 0, dp(8));
         root.addView(zhLabel);
 
-        chinese = label("Bản dịch sẽ hiện ở đây", 30);
+        chinese = label("Bản dịch sẽ hiện ở đây", 60);
         chinese.setTextColor(green);
         chinese.setGravity(Gravity.CENTER);
-        chinese.setPadding(dp(10), dp(22), dp(10), dp(22));
+        chinese.setPadding(dp(10), dp(12), dp(10), dp(12));
         chinese.setBackgroundColor(Color.WHITE);
         root.addView(chinese, new LinearLayout.LayoutParams(-1, -2));
 
@@ -122,13 +122,32 @@ public class MainActivity extends Activity {
         pinyin.setPadding(0, dp(16), 0, dp(16));
         root.addView(pinyin);
 
-        speakButton = makeButton("🔊 Phát âm tiếng Trung");
-        root.addView(speakButton, new LinearLayout.LayoutParams(-1, dp(54)));
-        speakButton.setOnClickListener(v -> speak());
+        
+LinearLayout buttonRow = new LinearLayout(this);
+buttonRow.setOrientation(LinearLayout.HORIZONTAL);
+buttonRow.setGravity(Gravity.CENTER);
 
-        rotateButton = makeButton("⛶ Phóng to màn hình (xoay ngang)");
-        root.addView(rotateButton, new LinearLayout.LayoutParams(-1, dp(54)));
-        rotateButton.setOnClickListener(v -> rotate());
+speakButton = makeButton("🔊 Phát âm");
+rotateButton = makeButton("⛶ Phóng to");
+
+
+LinearLayout.LayoutParams speakParams =
+        new LinearLayout.LayoutParams(0, dp(42), 1f);
+speakParams.setMargins(dp(4), 0, dp(4), 0);
+
+LinearLayout.LayoutParams rotateParams =
+        new LinearLayout.LayoutParams(0, dp(42), 1f);
+rotateParams.setMargins(dp(4), 0, dp(4), 0);
+
+buttonRow.addView(speakButton, speakParams);
+buttonRow.addView(rotateButton, rotateParams);
+
+
+root.addView(buttonRow, new LinearLayout.LayoutParams(-1, dp(48)));
+
+speakButton.setOnClickListener(v -> speak());
+rotateButton.setOnClickListener(v -> rotate());
+
 
         status = label("Cần Internet để dịch. Phát âm dùng giọng đọc trên điện thoại.", 13);
         status.setPadding(0, dp(10), 0, dp(5));
@@ -276,27 +295,25 @@ public class MainActivity extends Activity {
         }
     }
 
-    void rotate() {
-        landscape = !landscape;
+    
+void rotate() {
+    landscape = !landscape;
 
-        if (landscape) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            chinese.setTextSize(44);
-            rotateButton.setText("↩ Thu nhỏ màn hình (xoay dọc)");
-        } else {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            chinese.setTextSize(30);
-            rotateButton.setText("⛶ Phóng to màn hình (xoay ngang)");
-        }
-    }
+    if (landscape) {
+        setRequestedOrientation(
+            ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        );
 
-    @Override
-    protected void onDestroy() {
-        if (tts != null) {
-            tts.stop();
-            tts.shutdown();
-        }
-        executor.shutdownNow();
-        super.onDestroy();
+        chinese.setTextSize(88);
+        rotateButton.setText("⛶ Thu nhỏ");
+
+    } else {
+        setRequestedOrientation(
+            ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        );
+
+        chinese.setTextSize(60);
+        rotateButton.setText("⛶ Phóng to");
     }
 }
+
