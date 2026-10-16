@@ -316,4 +316,5 @@ void rotate() {
         rotateButton.setText("⛶ Phóng to");
     }
 }
+    }
 
